@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= f.label :kingdom %>
-    <%= f.text_field :kingdom %>
+    <%= select(:animal, :kingdom, [['Mammal'], ['Reptile'], ['Fish'], ['Amphibian'], ['Bird']]) %>
   </div>
 
   <div class="actions">

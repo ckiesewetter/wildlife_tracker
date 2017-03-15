@@ -32,6 +32,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :region %>
+    <%= select(:sighting, :region, [['North'], ['South'], ['East'], ['West']]) %>
+  </div>
+
+  <div class="field">
     <%= f.label :animal_id %>
     <%= select(:sighting, :animal_id, @animals_for_select) %>
   </div>

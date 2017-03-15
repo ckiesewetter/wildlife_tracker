@@ -17,3 +17,40 @@
 
 <%= link_to 'Edit', edit_animal_path(@animal) %> |
 <%= link_to 'Back', animals_path %>
+<br>
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Region</th>
+      <th>Animal</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @animal.sightings.each do |sighting| %>
+      <tr>
+        <td><%= sighting.date %></td>
+        <td><%= sighting.time.to_s(:time) %></td>
+        <td><%= sighting.latitude %></td>
+        <td><%= sighting.longitude %></td>
+        <td><%= sighting.region %></td>
+        <td><%= sighting.animal.common_name %></td>
+        <td><%= link_to 'Edit', edit_sighting_path(sighting) %></td>
+        <td><%= link_to 'Destroy', sighting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<br>
+
+<form class="" action="/sightings/new" method="get">
+  <input type="submit" name="" value="New Sighting"/>
+</form>

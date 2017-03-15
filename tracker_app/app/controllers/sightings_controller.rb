@@ -4,7 +4,31 @@ class SightingsController < ApplicationController
   # GET /sightings
   # GET /sightings.json
   def index
-    @sightings = Sighting.all
+    # This is the logic for filtering sightings by date range
+    if params[:start_date].blank? && params[:end_date].blank? && params[:filter_region].blank?
+      @sightings = Sighting.all
+    elsif !params[:start_date].blank? && !params[:end_date].blank? && params[:filter_region].blank?
+      @sightings = Sighting.where(date: params[:start_date]..params[:end_date])
+      render('sightings/index.html.erb')
+    elsif params[:start_date].blank? && params[:end_date].blank? && !params[:filter_region].blank?
+      @sightings = Sighting.where(region: params[:filter_region])
+      render('sightings/index.html.erb')
+    elsif !params[:start_date].blank? && !params[:end_date].blank? && !params[:filter_region].blank?
+      @sightings = Sighting.where(date: params[:start_date]..params[:end_date], region: params[:filter_region])
+      render('sightings/index.html.erb')
+    elsif !params[:start_date].blank? && params[:end_date].blank? && params[:filter_region].blank?
+      @sightings = Sighting.where(date: params[:start_date]..'3000-01-01')
+      render('sightings/index.html.erb')
+    elsif params[:start_date].blank? && !params[:end_date].blank? && params[:filter_region].blank?
+      @sightings = Sighting.where(date: '1000-01-01'..params[:end_date])
+      render('sightings/index.html.erb')
+    elsif !params[:start_date].blank? && params[:end_date].blank? && !params[:filter_region].blank?
+      @sightings = Sighting.where(date: params[:start_date]..'3000-01-01', region: params[:filter_region])
+      render('sightings/index.html.erb')
+    elsif params[:start_date].blank? && !params[:end_date].blank? && !params[:filter_region].blank?
+      @sightings = Sighting.where(date: '1000-01-01'..params[:end_date], region: params[:filter_region])
+      render('sightings/index.html.erb')
+    end
   end
 
   # GET /sightings/1
@@ -20,6 +44,8 @@ class SightingsController < ApplicationController
       [animal.common_name, animal.id]
     end
     @sighting.animal = Animal.first
+
+    #Setup the animals list
   end
 
   # GET /sightings/1/edit
@@ -33,7 +59,9 @@ class SightingsController < ApplicationController
   # POST /sightings.json
   def create
     @sighting = Sighting.new(sighting_params)
-
+    @animals_for_select = Animal.all.map do |animal|
+      [animal.common_name, animal.id]
+    end
     respond_to do |format|
       if @sighting.save
         format.html { redirect_to @sighting, notice: 'Sighting was successfully created.' }
@@ -77,6 +105,6 @@ class SightingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sighting_params
-      params.require(:sighting).permit(:date, :time, :latitude, :longitude, :animal_id)
+      params.require(:sighting).permit(:date, :time, :latitude, :longitude, :region, :animal_id, :start_date, :end_date, :filter_region)
     end
 end

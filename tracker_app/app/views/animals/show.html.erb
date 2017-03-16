@@ -20,7 +20,7 @@
 <br>
 <br>
 
-<table>
+<table id="sighting_table">
   <thead>
     <tr>
       <th>Date</th>
@@ -51,6 +51,38 @@
 <br>
 <br>
 
-<form class="" action="/sightings/new" method="get">
-  <input type="submit" name="" value="New Sighting"/>
-</form>
+<p>
+  <!-- Input area for new wine -->
+  <form id="new_sighting_form">
+    <div class="field">
+      <label for="date">Date</label><br>
+      <input type="date" name="sighting[date]" id="date" />
+    </div>
+    <div class="field">
+      <label for="time">Time</label><br>
+      <input type="time" name="sighting[time]" id="time" />
+    </div>
+    <div class="field">
+      <label for="latitude">Latitude</label><br>
+      <input type="latitude" name="sighting[latitude]" id="latitude" />
+    </div>
+    <div class="field">
+      <label for="longitude">Longitude</label><br>
+      <input type="longitude" name="sighting[longitude]" id="longitude" />
+    </div>
+    <div class="field">
+      <label for="region">Region</label><br>
+      <select id="region" name="animal[region]">
+        <option value="Select" selected="selected">Select</option>
+        <option value="North">North</option>
+        <option value="South">South</option>
+        <option value="East">East</option>
+        <option value="West">West</option>
+      </select>
+    </div>
+    <input type="hidden" name="sighting[animal_id]" id="animal_id" value="<%=@animal.id%>">
+    <button id="add_new_sighting_button">Add New Sighting</button>
+  </form>
+</p>
+
+<%= link_to 'New Sighting', new_sighting_path(:animal => @animal.id) %>

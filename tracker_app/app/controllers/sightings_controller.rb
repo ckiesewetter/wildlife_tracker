@@ -39,13 +39,18 @@ class SightingsController < ApplicationController
   # GET /sightings/new
   def new
     @sighting = Sighting.new
+      #Setup the animals list
+      if params[:animal].nil?
+        # assign a default Animal if the params are empty
+        @sighting.animal = Animal.first
+      else
+        #use Animal in the URL param and tell the new Sighting that it belongs to this Animal
+        @sighting.animal = Animal.find(params[:animal])
+      end
     # Setup the animal dropdown list
     @animals_for_select = Animal.all.map do |animal|
       [animal.common_name, animal.id]
     end
-    @sighting.animal = Animal.first
-
-    #Setup the animals list
   end
 
   # GET /sightings/1/edit

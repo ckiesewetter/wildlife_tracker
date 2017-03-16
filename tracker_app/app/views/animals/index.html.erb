@@ -4,7 +4,7 @@
 
 <%= link_to 'New Animal', new_animal_path %>
 
-<table>
+<table id="animal_table">
   <thead>
     <tr>
       <th>Common name</th>
@@ -27,6 +27,34 @@
     <% end %>
   </tbody>
 </table>
+
+<br>
+
+<p>
+  <!-- Input area for new wine -->
+  <form id="new_animal_form">
+    <div class="field">
+      <label for="common_name">Common Name</label><br>
+      <input type="text" name="animal[common_name]" id="common_name" />
+    </div>
+    <div class="field">
+      <label for="latin_name">Latin Name</label><br>
+      <input type="text" name="animal[latin_name]" id="latin_name" />
+    </div>
+    <div class="field">
+      <label for="kingdom">Kingdom</label><br>
+      <select id="kingdom" name="animal[kingdom]">
+        <option value="Select" selected="selected">Select</option>
+        <option value="Mammal">Mammal</option>
+        <option value="Reptile">Reptile</option>
+        <option value="Fish">Fish</option>
+        <option value="Amphibian">Amphibian</option>
+        <option value="Bird">Bird</option>
+      </select>
+    </div>
+    <button id="add_new_animal_button">Add New Animal</button>
+  </form>
+</p>
 
 <br>
 

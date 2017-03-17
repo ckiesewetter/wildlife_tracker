@@ -36,7 +36,7 @@ $("document").ready(function() {
       });// end ajax
   });// end add animal
   // resets the form so it displays empty
-  $("#new_animal_form").reset();
+  // $("#new_animal_form").reset();
 
   // add new sighting to the animal
   $("#add_new_sighting_button").on(
@@ -79,7 +79,7 @@ $("document").ready(function() {
       });// end ajax
   });// end add sighting
   // resets the form so it displays empty
-  $("#new_sighting_form").reset();
+  // $("#new_sighting_form").reset();
 }); // end document ready
 
 // Function to be called after animal data has been successfully submitted

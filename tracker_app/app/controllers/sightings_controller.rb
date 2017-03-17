@@ -102,11 +102,21 @@ class SightingsController < ApplicationController
     end
   end
 
+  def get_events
+    @sightings = Sighting.all
+    events = []
+    @sightings.each do |sighting|
+      events << { id: sighting.id, title: sighting.animal.common_name, start: sighting.date, url: Rails.application.routes.url_helpers.sighting_path(sighting.id)}
+    end
+    render :json => events.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sighting
       @sighting = Sighting.find(params[:id])
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sighting_params
